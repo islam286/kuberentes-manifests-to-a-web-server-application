@@ -1,19 +1,20 @@
-# Use the official Ruby image as the base image
+# Use an official Ruby runtime as the base image
 FROM ruby:3.0
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy all files to the container
-COPY . ./
+# Copy the Gemfile and Gemfile.lock into the container
+COPY Gemfile Gemfile.lock ./
 
-# Install gem dependencies
-RUN gem install bundler
+# Install dependencies
 RUN bundle install
 
+# Copy the rest of the application code into the container
+COPY . .
 
-# Expose port 4567 for the Sinatra app
-EXPOSE  4567
+# Expose the port your application will run on
+EXPOSE 4567
 
-# Define the command to run the application
-CMD ["ruby", "./app.rb"]
+# Define the command to run your application when the container starts
+CMD ["ruby", "app.rb"]

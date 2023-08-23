@@ -1,23 +1,21 @@
-require 'sinatra'
+require 'webrick'
 require 'json'
 
-configure do
-  set :allow_origin, '*' # Change this to your frontend's domain in production
-  set :allow_methods, 'GET'
+class MyServlet < WEBrick::HTTPServlet::AbstractServlet
+  def do_GET(request, response)
+    response.header['Access-Control-Allow-Origin'] = '*'
+    response.header['Access-Control-Request-Method'] = 'GET'
+    
+    if request.request_method == "GET"
+      res = { msg: "healthy" }
+      response.status = 200
+      response.content_type = "text/plain"
+      response.body = res.to_json
+    end
+  end
 end
 
-before do
-  response.headers['Access-Control-Allow-Origin'] = settings.allow_origin
-  response.headers['Access-Control-Allow-Methods'] = settings.allow_methods
-end
-
-# Your route definitions here
-get '/health' do
-  content_type :json
-  { msg: 'healthy' }.to_json
-end
-
-get '/' do
-  content_type :json
-  { msg: 'healthy' }.to_json
-end
+server = WEBrick::HTTPServer.new(Port: 4567)
+server.mount('/health', MyServlet)
+trap('INT') { server.shutdown } # so you can stop the server using Ctrl-C
+server.start
