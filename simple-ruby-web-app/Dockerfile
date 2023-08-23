@@ -13,7 +13,7 @@ RUN bundle install
 
 
 # Expose port 4567 for the Sinatra app
-EXPOSE  8080
+EXPOSE  4567
 
 # Define the command to run the application
-CMD ["ruby", "app.rb"]
+CMD ["ruby", "./app.rb"]
