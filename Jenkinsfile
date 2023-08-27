@@ -12,9 +12,10 @@ pipeline {
 
         stage('Login to Dockerhub') {
             steps {
-                sh 'echo $REGISTRY_CREDENTIALS_PSW | docker login -u $REGISTRY_CREDENTIALS_USR --password-stdin'
+                bat "echo ${REGISTRY_CREDENTIALS_PSW} | docker login -u ${REGISTRY_CREDENTIALS_USR} --password-stdin"
             }
         }
+
 
         stage('docker build for backend') {
             steps {
