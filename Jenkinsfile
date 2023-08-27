@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Build backend Docker image
-                    docker.build("${BACKEND_IMAGE_NAME}:${IMAGE_TAG}", '-f ./simple-ruby-web-app .')
+                    docker.build("${BACKEND_IMAGE_NAME}:${IMAGE_TAG}", '-f ./simple-ruby-web-app/Dockerfile .')
 
                     docker.withRegistry('https://index.docker.io/v1/', REGISTRY_CREDENTIALS) {
                         // Push the backend image to the registry
