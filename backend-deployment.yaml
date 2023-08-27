@@ -4,7 +4,13 @@ metadata:
   name: backend-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: backend  # This label should match the label in the template
   template:
+    metadata:
+      labels:
+        app: backend  # This label should match the label in the selector
     spec:
       containers:
         - name: backend

@@ -4,10 +4,16 @@ metadata:
   name: frontend-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: frontend  # This label should match the label in the template
   template:
+    metadata:
+      labels:
+        app: frontend  # This label should match the label in the selector
     spec:
       containers:
         - name: frontend
-          image: minghazal/frontend:latest  # Placeholder for the initial image
+          image: minighazal/frontend:latest
           ports:
             - containerPort: 3000
