@@ -26,13 +26,13 @@ pipeline {
             }
         }
 
-        stage('Scan Image for Common Vulnerabilities and Exposures') {
+        stage('Scan Image for Common Vulnerabilities and Exposures of backend') {
             steps {
                 sh 'trivy image $BACKEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
             }
         }
 
-        stage('Pushing to Dockerhub') {
+        stage('Pushing backend image to Dockerhub') {
             steps {
                 sh 'docker push $BACKEND_IMAGE_NAME:$IMAGE_TAG'
             }
@@ -62,13 +62,13 @@ pipeline {
             }
         }
 
-        stage('Scan Image for Common Vulnerabilities and Exposures') {
+        stage('Scan Image for Common Vulnerabilities and Exposures of front') {
             steps {
                 sh 'trivy image $FRONTEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
             }
         }
 
-        stage('Pushing to Dockerhub') {
+        stage('Pushing frontend to Dockerhub') {
             steps {
                 sh 'docker push $FRONTEND_IMAGE_NAME:$IMAGE_TAG'
             }
