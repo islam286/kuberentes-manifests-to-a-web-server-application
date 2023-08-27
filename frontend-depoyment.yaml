@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: frontend
+          image: minghazal/frontend:latest  # Placeholder for the initial image
+          ports:
+            - containerPort: 3000

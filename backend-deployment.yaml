@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: backend
+          image: minighazal/backend:latest
+          ports:
+            - containerPort: 4567

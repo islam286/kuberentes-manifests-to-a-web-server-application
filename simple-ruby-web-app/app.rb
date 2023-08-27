@@ -17,5 +17,5 @@ end
 
 server = WEBrick::HTTPServer.new(Port: 4567)
 server.mount('/health', MyServlet)
-trap('INT') { server.shutdown } # so you can stop the server using Ctrl-C
+trap('INT') { server.shutdown } 
 server.start
