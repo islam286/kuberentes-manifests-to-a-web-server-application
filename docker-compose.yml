@@ -9,7 +9,7 @@ services:
 
   backend:
     build:
-      context: ./simple-ruby-web-app/  # Path to the backend app directory
+      context: ./backend/  # Path to the backend app directory
       dockerfile: Dockerfile  # Use your backend's Dockerfile
     ports:
       - "4567:4567"  # Map container port to host port

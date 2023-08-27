@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                     docker images -a
-                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG ./simple-ruby-web-app/
+                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG ./backend/
                     docker images -a
                 '''
             }
@@ -75,20 +75,20 @@ pipeline {
             }
         }
 
-        stage('Update Manifests') {
-            steps {
-                script {
-                    // Read and update backend deployment manifest
-                    def backendManifest = readFile('backend-deployment.yaml')
-                    backendManifest = backendManifest.replace('minighazal/backend', "$BACKEND_IMAGE_NAME:$IMAGE_TAG")
-                    writeFile file: 'backend-deployment.yaml', text: backendManifest
+        // stage('Update Manifests') {
+        //     steps {
+        //         script {
+        //             // Read and update backend deployment manifest
+        //             def backendManifest = readFile('backend-deployment.yaml')
+        //             backendManifest = backendManifest.replace('minighazal/backend', "$BACKEND_IMAGE_NAME:$IMAGE_TAG")
+        //             writeFile file: 'backend-deployment.yaml', text: backendManifest
 
-                    // Read and update frontend deployment manifest
-                    def frontendManifest = readFile('frontend-deployment.yaml')
-                    frontendManifest = frontendManifest.replace('minighazal/frontend:latest', "$FRONTEND_IMAGE_NAME:$IMAGE_TAG")
-                    writeFile file: 'frontend-deployment.yaml', text: frontendManifest
-                }
-            }
-        }
+        //             // Read and update frontend deployment manifest
+        //             def frontendManifest = readFile('frontend-deployment.yaml')
+        //             frontendManifest = frontendManifest.replace('minighazal/frontend', "$FRONTEND_IMAGE_NAME:$IMAGE_TAG")
+        //             writeFile file: 'frontend-deployment.yaml', text: frontendManifest
+        //         }
+        //     }
+        // }
     }
 }
