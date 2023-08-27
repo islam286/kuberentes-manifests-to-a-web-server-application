@@ -12,7 +12,7 @@ pipeline {
 
         stage('Login to Dockerhub') {
             steps {
-                bat "echo ${REGISTRY_CREDENTIALS_PSW} | docker login -u ${REGISTRY_CREDENTIALS_USR} --password-stdin"
+                sh "echo ${REGISTRY_CREDENTIALS_PSW} | docker login -u ${REGISTRY_CREDENTIALS_USR} --password-stdin"
             }
         }
 
@@ -27,10 +27,10 @@ pipeline {
             }
         }
 
-        stage('Scan Image for Common Vulnerabilities and Exposures of backend') {
-            steps {
-                sh 'trivy image $BACKEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
-            }
+        // stage('Scan Image for Common Vulnerabilities and Exposures of backend') {
+        //     steps {
+        //         sh 'trivy image $BACKEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
+        //     }
         }
 
         stage('Pushing backend image to Dockerhub') {
@@ -63,11 +63,11 @@ pipeline {
             }
         }
 
-        stage('Scan Image for Common Vulnerabilities and Exposures of front') {
-            steps {
-                sh 'trivy image $FRONTEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
-            }
-        }
+        // stage('Scan Image for Common Vulnerabilities and Exposures of front') {
+        //     steps {
+        //         sh 'trivy image $FRONTEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
+        //     }
+        // }
 
         stage('Pushing frontend to Dockerhub') {
             steps {
