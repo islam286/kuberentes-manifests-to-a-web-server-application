@@ -16,11 +16,11 @@ pipeline {
             }
         }
 
-        stage('docker build') {
+        stage('docker build for backend') {
             steps {
                 sh '''
                     docker images -a
-                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG .
+                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG ./simple-ruby-web-app/
                     docker images -a
                 '''
             }
@@ -38,17 +38,39 @@ pipeline {
             }
         }
 
-        stage('Build and Push Frontend Image') {
-            steps {
-                script {
-                    // Build frontend Docker image
-                    docker.build("$FRONTEND_IMAGE_NAME:$IMAGE_TAG", '-f ./frontend/Dockerfile .')
+        // stage('Build and Push Frontend Image') {
+        //     steps {
+        //         script {
+        //             // Build frontend Docker image
+        //             docker.build("$FRONTEND_IMAGE_NAME:$IMAGE_TAG", '-f ./frontend/Dockerfile .')
 
-                    docker.withRegistry('https://index.docker.io/v1/', REGISTRY_CREDENTIALS) {
-                        // Push the frontend image to the registry
-                        docker.image("$FRONTEND_IMAGE_NAME:$IMAGE_TAG").push()
-                    }
-                }
+        //             docker.withRegistry('https://index.docker.io/v1/', REGISTRY_CREDENTIALS) {
+        //                 // Push the frontend image to the registry
+        //                 docker.image("$FRONTEND_IMAGE_NAME:$IMAGE_TAG").push()
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('docker build for frontend') {
+            steps {
+                sh '''
+                    docker images -a
+                    docker build -t $FRONTEND_IMAGE_NAME:$IMAGE_TAG ./frontend/
+                    docker images -a
+                '''
+            }
+        }
+
+        stage('Scan Image for Common Vulnerabilities and Exposures') {
+            steps {
+                sh 'trivy image $FRONTEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
+            }
+        }
+
+        stage('Pushing to Dockerhub') {
+            steps {
+                sh 'docker push $FRONTEND_IMAGE_NAME:$IMAGE_TAG'
             }
         }
 
