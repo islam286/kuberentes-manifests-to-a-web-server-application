@@ -31,7 +31,7 @@ pipeline {
         //     steps {
         //         sh 'trivy image $BACKEND_IMAGE_NAME:$IMAGE_TAG --output trivy-report.json'
         //     }
-        }
+        // }
 
         stage('Pushing backend image to Dockerhub') {
             steps {
