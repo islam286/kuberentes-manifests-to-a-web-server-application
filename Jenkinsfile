@@ -60,12 +60,12 @@ pipeline {
                 script {
                     // Update frontend deployment image reference
                     sh '''
-                        sed -i 's|image: minighazal/frontend:latest|image: '"$FRONTEND_IMAGE_NAME:$IMAGE_TAG"'|' ./frontend-deployment.yaml
+                        sed -i 's|image: minighazal/frontend:.*|image: '"$FRONTEND_IMAGE_NAME:$IMAGE_TAG"'|' ./frontend-deployment.yaml
                     '''
 
                     // Update backend deployment image reference
                     sh '''
-                        sed -i 's|image: minighazal/backend:latest|image: '"$BACKEND_IMAGE_NAME:$IMAGE_TAG"'|' ./backend-deployment.yaml
+                        sed -i 's|image: minighazal/backend:.*|image: '"$BACKEND_IMAGE_NAME:$IMAGE_TAG"'|' ./backend-deployment.yaml
                     '''
                 }
             }
