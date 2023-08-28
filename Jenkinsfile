@@ -5,7 +5,7 @@ pipeline {
         REGISTRY_CREDENTIALS = credentials('DockerHub-Credinitials')
         BACKEND_IMAGE_NAME = 'minighazal/backend'
         FRONTEND_IMAGE_NAME = 'minighazal/frontend'
-        IMAGE_TAG = 'latest'
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -54,6 +54,22 @@ pipeline {
             }
         }
 
+        
+        stage('Update Deployment Images') {
+            steps {
+                script {
+                    // Update frontend deployment image reference
+                    sh '''
+                        sed -i 's|image: minighazal/frontend:latest|image: '"$FRONTEND_IMAGE_NAME:$IMAGE_TAG"'|' frontend-deployment.yaml
+                    '''
+
+                    // Update backend deployment image reference
+                    sh '''
+                        sed -i 's|image: minighazal/backend:latest|image: '"$BACKEND_IMAGE_NAME:$IMAGE_TAG"'|' backend-deployment.yaml
+                    '''
+                }
+            }
+        }
 
     }
 }
