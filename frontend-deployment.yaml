@@ -17,3 +17,10 @@ spec:
           image: minighazal/frontend:latest
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"  # Minimum memory required
+              cpu: "100m"      # Minimum CPU required
+            limits:
+              memory: "256Mi"  # Maximum memory allowed
+              cpu: "200m"      # Maximum CPU allowed
