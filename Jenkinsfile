@@ -70,20 +70,19 @@ pipeline {
                 }
             }
         }
-        
-        stage('Rollout New Version') {
-            steps {
-                script {
-                    // Apply updated deployment manifests
-                    sh 'sudo kubectl apply -f frontend-deployment.yaml'
-                    sh 'sudo kubectl apply -f backend-deployment.yaml'
+            stage('Rollout New Version') {
+                steps {
+                    script {
+                        // Apply updated deployment manifests
+                        sh 'kubectl apply -f frontend-deployment.yaml'
+                        sh 'kubectl apply -f backend-deployment.yaml'
 
-                    // Monitor the rollout status for both deployments
-                    sh 'sudo kubectl rollout status deployment/frontend-deployment'
-                    sh 'sudo kubectl rollout status deployment/backend-deployment'
+                        // Monitor the rollout status for both deployments
+                        sh 'kubectl rollout status deployment/frontend-deployment'
+                        sh 'kubectl rollout status deployment/backend-deployment'
+                    }
                 }
             }
-        }
 
     }
 }
