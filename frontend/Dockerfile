@@ -10,4 +10,4 @@ FROM node
 EXPOSE 3000
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/build ./
-CMD [ "npm","start" ]
+CMD [ "npx","serve" ]
