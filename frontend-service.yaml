@@ -11,3 +11,5 @@ spec:
       port: 3000  # Port exposed within the cluster
       targetPort: 3000  # Port your frontend listens on
       nodePort: 31001  # Choose a different port in the range 30000-32767
+  externalIPs:
+    - 192.168.49.2
