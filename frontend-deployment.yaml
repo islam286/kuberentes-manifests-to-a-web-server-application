@@ -23,4 +23,4 @@ spec:
               cpu: "100m"      # Minimum CPU required
             limits:
               memory: "500Mi"  # Maximum memory allowed
-              cpu: "200m"      # Maximum CPU allowed
+              cpu: "500m"      # Maximum CPU allowed
