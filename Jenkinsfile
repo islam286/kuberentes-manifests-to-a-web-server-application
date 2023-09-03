@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                     docker images -a
-                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG ./backend/
+                    docker build -t $BACKEND_IMAGE_NAME:$IMAGE_TAG ./ruby/
                     docker images -a
                 '''
             }
@@ -60,12 +60,12 @@ pipeline {
                 script {
                     // Update frontend deployment image reference
                     sh '''
-                        sed -i 's|image: minighazal/frontend:.*|image: '"$FRONTEND_IMAGE_NAME:$IMAGE_TAG"'|' ./frontend-deployment.yaml
+                        sed -i 's|image: minighazal/frontend:.*|image: '"$FRONTEND_IMAGE_NAME:$IMAGE_TAG"'|' ./Frontend-deployment.yaml
                     '''
 
                     // Update backend deployment image reference
                     sh '''
-                        sed -i 's|image: minighazal/backend:.*|image: '"$BACKEND_IMAGE_NAME:$IMAGE_TAG"'|' ./backend-deployment.yaml
+                        sed -i 's|image: minighazal/backend:.*|image: '"$BACKEND_IMAGE_NAME:$IMAGE_TAG"'|' ./Backend-deployment.yaml
                     '''
                 }
             }
@@ -74,8 +74,8 @@ pipeline {
                 steps {
                     script {
                         // Apply updated deployment manifests
-                        sh 'kubectl apply -f frontend-deployment.yaml'
-                        sh 'kubectl apply -f backend-deployment.yaml'
+                        sh 'kubectl apply -f Frontend-deployment.yaml'
+                        sh 'kubectl apply -f Backend-deployment.yaml'
 
                         // Monitor the rollout status for both deployments
                         sh 'kubectl rollout status deployment/frontend-deployment'

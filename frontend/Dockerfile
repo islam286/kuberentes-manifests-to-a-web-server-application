@@ -9,3 +9,4 @@ RUN npm install
 EXPOSE 3000
 # Set the entrypoint command to start the application
 CMD ["npm", "start"]
+

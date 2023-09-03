@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: front-container
+          image: minighazal/frontend:35
+          ports: 
+           - containerPort: 3000
+          resources:
+            requests:
+              cpu: "200m"   
+              memory: "300Mi" 
+            limits:
+              cpu: "500m"   
+              memory: "500Mi"  

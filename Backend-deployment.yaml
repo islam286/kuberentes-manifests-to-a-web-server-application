@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: ruby-container
+          image: minighazal/backend:16
+          ports:
+            - containerPort: 4567
+          resources:
+            requests:
+              cpu: "200m"   
+              memory: "300Mi" 
+            limits:
+              cpu: "500m"   
+              memory: "500Mi"  

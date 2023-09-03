@@ -1,17 +1,17 @@
-version: '3'
+version: '3.8'
 services:
-  frontend:
-    build:
-      context: ./frontend/  # Path to the frontend app directory
-      dockerfile: Dockerfile  # Use your frontend's Dockerfile
-    ports:
-      - "3000:3000"  # Map container port to host port
-
-  backend:
-    build:
-      context: ./backend/  # Path to the backend app directory
-      dockerfile: Dockerfile  # Use your backend's Dockerfile
-    ports:
-      - "4567:4567"  # Map container port to host port
-    depends_on:
-      - frontend  # Making sure frontend container is running before starting backend
+    front:
+      ports:
+        - 3000:3000
+      build:
+        context: ./frontend/
+        dockerfile: Dockerfile
+      
+    back:
+      ports:
+      - 4567:4567
+      build:
+        context: ./ruby/   
+        dockerfile: Dockerfile
+      depends_on:
+        - front
