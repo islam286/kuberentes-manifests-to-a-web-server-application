@@ -10,6 +10,6 @@ spec:
     - protocol: TCP
       port: 4567  # Port exposed within the cluster
       targetPort: 4567  # Port your container is listening on
-      nodePort: 30015
+      nodePort: 31000
   externalIPs:
    - 192.168.49.2    
