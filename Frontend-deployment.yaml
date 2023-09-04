@@ -24,3 +24,17 @@ spec:
             limits:
               cpu: "500m"   
               memory: "500Mi"  
+          volumeMounts:
+            - name: nginx-logs-pvc
+              mountPath: /var/log/nginx
+     
+          env:
+            - name: my-configmap
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: REACT_APP_BACKEND_URL
+      volumes:
+        - name: nginx-logs-pvc
+          persistentVolumeClaim:
+            claimName: nginx-logs-pvc
