@@ -1,0 +1,1 @@
+# kubernetes manifests to web server application
