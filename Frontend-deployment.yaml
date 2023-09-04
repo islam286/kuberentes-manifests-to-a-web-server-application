@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: minighazal/frontend:35
+          image: minighazal/frontend:19
           ports: 
            - containerPort: 3000
           resources:
